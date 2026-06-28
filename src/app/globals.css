@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/*  Klok design system — single source of truth for the brand         */
+/*  Tailwind v4 reads these tokens and generates matching utilities    */
+/*  (bg-paper, text-ink, font-display, rounded-card, shadow-lift, ...) */
+/* ------------------------------------------------------------------ */
+@theme {
+  /* Brand + neutral palette */
+  --color-paper: #fafaf7; /* warm off-white page background */
+  --color-paper-2: #f3f2ec; /* alternating section background */
+  --color-surface: #ffffff; /* cards */
+  --color-ink: #14131a; /* primary text, near-black warm */
+  --color-ink-soft: #44414d; /* secondary text */
+  --color-muted: #6c6877; /* tertiary / captions */
+  --color-line: #e8e6df; /* hairline borders */
+
+  --color-violet: #7c5cfc; /* the one reserved accent */
+  --color-violet-dark: #6845f1; /* hover / active */
+  --color-violet-ink: #3a2b8c; /* accent text on light */
+  --color-violet-soft: #ece7ff; /* accent tint surfaces */
+
+  --color-mint: #1faa78; /* success / positive deltas */
+
+  /* Typography */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif,
+    system-ui, sans-serif;
+
+  /* Radii */
+  --radius-card: 1.25rem;
+  --radius-pill: 9999px;
+
+  /* Shadows — soft, designer-grade */
+  --shadow-soft: 0 1px 2px rgba(20, 19, 26, 0.04),
+    0 8px 24px -12px rgba(20, 19, 26, 0.12);
+  --shadow-lift: 0 2px 4px rgba(20, 19, 26, 0.04),
+    0 24px 48px -24px rgba(20, 19, 26, 0.22);
+  --shadow-accent: 0 12px 30px -10px rgba(124, 92, 252, 0.5);
+
+  /* Container */
+  --breakpoint-xs: 30rem;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                              */
+/* ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* offset anchor jumps for the sticky nav */
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* safety net against any stray horizontal overflow */
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Visible, consistent keyboard focus everywhere */
+  :focus-visible {
+    outline: 2px solid var(--color-violet);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-violet);
+    color: #fff;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Scroll-reveal — progressive enhancement                          */
+/*  Elements start hidden only if JS marks <html> as js-enabled,     */
+/*  so no-JS users always see content.                               */
+/* ------------------------------------------------------------------ */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* subtle staggered children */
+.reveal[data-delay="1"] {
+  transition-delay: 0.08s;
+}
+.reveal[data-delay="2"] {
+  transition-delay: 0.16s;
+}
+.reveal[data-delay="3"] {
+  transition-delay: 0.24s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* gentle ambient float for the hero mock accents */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.animate-float {
+  animation: float-y 6s ease-in-out infinite;
+}
