@@ -9,7 +9,7 @@ import { PauseIcon, ReceiptIcon, CheckIcon } from "./ui/icons";
 const entries = [
   { project: "Brand identity", client: "Møller Studio", tag: "Design", dur: "2:14", color: "bg-violet" },
   { project: "Landing page", client: "Fernweh Travel", tag: "UI", dur: "1:48", color: "bg-mint" },
-  { project: "Icon set", client: "Pило Labs", tag: "Illustration", dur: "0:52", color: "bg-amber-400" },
+  { project: "Icon set", client: "Pilo Labs", tag: "Illustration", dur: "0:52", color: "bg-amber-400" },
 ];
 
 const bars = [40, 62, 48, 80, 55, 30, 70];

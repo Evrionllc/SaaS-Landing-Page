@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useState } from "react";
 import Container from "./ui/Container";
 import SectionHeading from "./ui/SectionHeading";
 import Button from "./ui/Button";
@@ -8,6 +8,7 @@ import { CheckIcon } from "./ui/icons";
 
 type Plan = {
   name: string;
+  slug: string;
   tagline: string;
   monthly: number;
   annual: number; // effective per-month price billed annually
@@ -19,6 +20,7 @@ type Plan = {
 const plans: Plan[] = [
   {
     name: "Solo",
+    slug: "solo",
     tagline: "For the freelancer just getting organised.",
     monthly: 0,
     annual: 0,
@@ -33,6 +35,7 @@ const plans: Plan[] = [
   },
   {
     name: "Studio",
+    slug: "studio",
     tagline: "For working designers who bill every week.",
     monthly: 12,
     annual: 9,
@@ -49,6 +52,7 @@ const plans: Plan[] = [
   },
   {
     name: "Collective",
+    slug: "collective",
     tagline: "For small studios sharing the workload.",
     monthly: 29,
     annual: 24,
@@ -65,7 +69,6 @@ const plans: Plan[] = [
 
 export default function Pricing() {
   const [annual, setAnnual] = useState(true);
-  const switchId = useId();
 
   return (
     <section id="pricing" className="scroll-mt-24 py-24 sm:py-28">
@@ -78,40 +81,45 @@ export default function Pricing() {
           plan includes a 14-day trial — no credit card required.
         </SectionHeading>
 
-        {/* billing toggle */}
-        <div className="reveal mt-9 flex items-center justify-center gap-3">
-          <span
-            className={`text-sm font-semibold ${
-              annual ? "text-muted" : "text-ink"
-            }`}
+        {/* billing period — segmented control (stays inside its bounds on any screen) */}
+        <div className="reveal mt-9 flex justify-center">
+          <div
+            role="group"
+            aria-label="Billing period"
+            className="inline-flex items-center gap-1 rounded-pill border border-line bg-surface p-1 shadow-soft"
           >
-            Monthly
-          </span>
-          <button
-            id={switchId}
-            type="button"
-            role="switch"
-            aria-checked={annual}
-            aria-label="Toggle annual billing"
-            onClick={() => setAnnual((v) => !v)}
-            className="relative h-7 w-12 rounded-pill bg-violet/90 transition-colors"
-          >
-            <span
-              className={`absolute top-1 h-5 w-5 rounded-full bg-white shadow transition-transform duration-200 ${
-                annual ? "translate-x-6" : "translate-x-1"
+            <button
+              type="button"
+              aria-pressed={!annual}
+              onClick={() => setAnnual(false)}
+              className={`rounded-pill px-4 py-2 text-sm font-semibold transition-colors ${
+                annual
+                  ? "text-ink-soft hover:text-ink"
+                  : "bg-ink text-white shadow-soft"
               }`}
-            />
-          </button>
-          <span
-            className={`text-sm font-semibold ${
-              annual ? "text-ink" : "text-muted"
-            }`}
-          >
-            Annual
-          </span>
-          <span className="rounded-pill bg-mint/15 px-2.5 py-1 text-xs font-bold text-mint">
-            Save 25%
-          </span>
+            >
+              Monthly
+            </button>
+            <button
+              type="button"
+              aria-pressed={annual}
+              onClick={() => setAnnual(true)}
+              className={`inline-flex items-center gap-2 rounded-pill px-4 py-2 text-sm font-semibold transition-colors ${
+                annual
+                  ? "bg-ink text-white shadow-soft"
+                  : "text-ink-soft hover:text-ink"
+              }`}
+            >
+              Annual
+              <span
+                className={`rounded-pill px-2 py-0.5 text-[11px] font-bold ${
+                  annual ? "bg-mint text-white" : "bg-mint/15 text-mint"
+                }`}
+              >
+                −25%
+              </span>
+            </button>
+          </div>
         </div>
 
         <div className="mt-12 grid grid-cols-1 items-stretch gap-6 lg:grid-cols-3">
@@ -153,7 +161,7 @@ export default function Pricing() {
                 </p>
 
                 <Button
-                  href="#"
+                  href={`/signup?plan=${plan.slug}`}
                   variant={plan.featured ? "primary" : "ghost"}
                   size="lg"
                   className="mt-6 w-full"

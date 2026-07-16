@@ -33,7 +33,7 @@ export default function FinalCTA() {
               and got their evenings back.
             </p>
             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Button href="#pricing" size="lg">
+              <Button href="/signup" size="lg">
                 Start your free trial
                 <ArrowRightIcon width={18} height={18} />
               </Button>

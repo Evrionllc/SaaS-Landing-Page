@@ -1,7 +1,8 @@
 import Container from "./ui/Container";
 import Button from "./ui/Button";
 import HeroMock from "./HeroMock";
-import { ArrowRightIcon, PlayIcon, StarIcon, BoltIcon } from "./ui/icons";
+import WatchDemoButton from "./DemoModal";
+import { ArrowRightIcon, StarIcon, BoltIcon } from "./ui/icons";
 
 export default function Hero() {
   return (
@@ -65,14 +66,11 @@ export default function Hero() {
             </p>
 
             <div className="reveal mt-8 flex flex-col gap-3 sm:flex-row">
-              <Button href="#pricing" size="lg">
+              <Button href="/signup" size="lg">
                 Start free trial
                 <ArrowRightIcon width={18} height={18} />
               </Button>
-              <Button href="#how" variant="ghost" size="lg">
-                <PlayIcon width={16} height={16} className="text-violet" />
-                Watch 2-min demo
-              </Button>
+              <WatchDemoButton />
             </div>
 
             <p className="reveal mt-4 text-sm text-muted">

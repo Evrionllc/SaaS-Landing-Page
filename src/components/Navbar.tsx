@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import Container from "./ui/Container";
 import Button from "./ui/Button";
@@ -71,13 +72,13 @@ export default function Navbar() {
           </ul>
 
           <div className="hidden items-center gap-2 md:flex">
-            <a
-              href="#"
+            <Link
+              href="/login"
               className="rounded-pill px-4 py-2 text-sm font-semibold text-ink-soft transition-colors hover:text-ink"
             >
               Log in
-            </a>
-            <Button href="#pricing">Start free trial</Button>
+            </Link>
+            <Button href="/signup">Start free trial</Button>
           </div>
 
           {/* Mobile toggle */}
@@ -111,10 +112,10 @@ export default function Navbar() {
             </a>
           ))}
           <div className="flex flex-col gap-2 pt-3">
-            <Button href="#" variant="ghost" size="lg" onClick={() => setOpen(false)}>
+            <Button href="/login" variant="ghost" size="lg" onClick={() => setOpen(false)}>
               Log in
             </Button>
-            <Button href="#pricing" size="lg" onClick={() => setOpen(false)}>
+            <Button href="/signup" size="lg" onClick={() => setOpen(false)}>
               Start free trial
             </Button>
           </div>
